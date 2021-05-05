@@ -23,15 +23,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
-// Since we only have one service, this can all go in one file.
-// If you add more services, split this to multiple files and make sure to share the retrofit
-// object between services.
+const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com/"
+
+/* Since we only have one service, this can all go in one file.
+ If you add more services, split this to multiple files and make sure to share the retrofit
+ object between services. */
 
 /**
  * A retrofit service to fetch a devbyte playlist.
+ * https://android-kotlin-fun-mars-server.appspot.com/devbytes
  */
 interface DevbyteService {
-    @GET("devbytes.json")
+    @GET("devbytes")
     suspend fun getPlaylist(): NetworkVideoContainer
 }
 
@@ -49,7 +52,7 @@ private val moshi = Moshi.Builder()
 object Network {
     // Configure retrofit to parse JSON and use coroutines
     private val retrofit = Retrofit.Builder()
-            .baseUrl("https://devbytes.udacity.com/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
