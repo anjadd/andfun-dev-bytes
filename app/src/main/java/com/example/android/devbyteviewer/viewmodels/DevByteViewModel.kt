@@ -22,9 +22,7 @@ import androidx.lifecycle.*
 import com.example.android.devbyteviewer.domain.Video
 import com.example.android.devbyteviewer.network.Network
 import com.example.android.devbyteviewer.network.asDomainModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -62,6 +60,41 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
         get() = _playlist
 
     /**
+     * Event triggered for network error. This is private to avoid exposing a
+     * way to set this value to observers.
+     */
+    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+
+    /**
+     * Event triggered for network error. Views should use this to get access
+     * to the data.
+     */
+    val eventNetworkError: LiveData<Boolean>
+        get() = _eventNetworkError
+
+    /**
+     * Flag to display the error message. This is private to avoid exposing a
+     * way to set this value to observers.
+     */
+    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+
+    /**
+     * Flag to display the error message. Views should use this to get access
+     * to the data.
+     */
+    val isNetworkErrorShown: LiveData<Boolean>
+        get() = _isNetworkErrorShown
+
+    /**
+     * Create a navigateToVideoLink event, whose changed value will trigger navigation to the
+     * video link on YouTube or a web url if there is no YouTube app on the device.
+     */
+    private val _navigateToVideoLink = MutableLiveData<Video?>()
+
+    val navigateToVideoLink: LiveData<Video?>
+        get() = _navigateToVideoLink
+
+    /**
      * init{} is called immediately when this ViewModel is created.
      */
     init {
@@ -76,14 +109,36 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
         try {
             val playlist = Network.devbytes.getPlaylist()
             _playlist.postValue(playlist.asDomainModel())
+
+            _eventNetworkError.value = false
+            _isNetworkErrorShown.value = false
+
         } catch (networkError: IOException) {
             // Show an infinite loading spinner if the request fails
             // challenge exercise: show an error to the user if the network request fails
+
+            /* Simulate the delay in network response (like a slow connection) using the
+            function delay()*/
+            delay(2000)
+            // Show a Toast error message and hide the progress bar.
+            _eventNetworkError.value = true
         }
     }
 
+    fun showVideo(selectedVideo: Video) {
+        _navigateToVideoLink.value = selectedVideo
+    }
+
+    fun onShowVideoNavigationDone() {
+        _navigateToVideoLink.value = null
+    }
+
     /**
+     * Resets the network error flag.
      */
+    fun onNetworkErrorShown() {
+        _isNetworkErrorShown.value = true
+    }
 
     /**
      * Factory for constructing DevByteViewModel with parameter

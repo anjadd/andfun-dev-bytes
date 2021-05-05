@@ -21,6 +21,7 @@ import com.example.android.devbyteviewer.domain.Video
 import com.squareup.moshi.JsonClass
 
 /**
+ * Data transfer object (DTO) is an object that carries data between processes.
  * DataTransferObjects go in this file. These are responsible for parsing responses from the server
  * or formatting objects to send to the server. You should convert these to domain objects before
  * using them.
