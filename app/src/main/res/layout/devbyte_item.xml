@@ -22,23 +22,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="video"
             type="com.example.android.devbyteviewer.domain.Video" />
 
         <variable
-            name="videoCallback"
+            name="videoClickListener"
             type="com.example.android.devbyteviewer.ui.VideoClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="5dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -84,7 +83,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/video_thumbnail"
                 tools:text="Video title" />
 
-
             <TextView
                 android:id="@+id/description"
                 android:layout_width="0dp"
@@ -96,11 +94,11 @@
                 android:textAllCaps="false"
                 android:textColor="@color/text_light"
                 android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/right_well"
                 app:layout_constraintStart_toStartOf="@+id/left_well"
                 app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="this is a vedeo @android:string/fingerprint_icon_content_description" />
+                tools:text="this is a video @android:string/fingerprint_icon_content_description" />
 
             <ImageView
                 android:id="@+id/video_thumbnail"
@@ -121,7 +119,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="?attr/selectableItemBackground"
-                android:onClick="@{() -> videoCallback.onClick(video)}"
+                android:onClick="@{() -> videoClickListener.onClick(video)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
