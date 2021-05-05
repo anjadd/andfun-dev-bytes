@@ -39,14 +39,6 @@ import java.io.IOException
 class DevByteViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
-     *
-     */
-
-    /**
-     *
-     */
-
-    /**
      * A playlist of videos that can be shown on the screen. This is private to avoid exposing a
      * way to set this value to observers.
      */
@@ -119,7 +111,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
             /* Simulate the delay in network response (like a slow connection) using the
             function delay()*/
-            delay(2000)
+            // delay(2000)
             // Show a Toast error message and hide the progress bar.
             _eventNetworkError.value = true
         }

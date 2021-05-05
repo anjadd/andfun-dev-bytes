@@ -47,29 +47,7 @@ class DevByteFragment : Fragment() {
             "You can only access the viewModel after onViewCreated()"
         }
 
-        ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
-                .get(DevByteViewModel::class.java)
-
-    }
-
-    /**
-     * RecyclerView Adapter for converting a list of Video to cards.
-     */
-    private var viewModelAdapter: DevByteAdapter? = null
-
-    /**
-     * Called immediately after onCreateView() has returned, and fragment's
-     * view hierarchy has been created.  It can be used to do final
-     * initialization once these pieces are in place, such as retrieving
-     * views or restoring state.
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, { videos ->
-            videos?.apply {
-                viewModelAdapter?.videos = videos
-            }
-        })
+        ViewModelProvider(this, DevByteViewModel.Factory(activity.application)).get(DevByteViewModel::class.java)
     }
 
     /**
@@ -105,9 +83,7 @@ class DevByteFragment : Fragment() {
         /**
          * Create and initialize the RecyclerView Adapter for converting a list of Video to cards.
          */
-        viewModelAdapter = DevByteAdapter(VideoClick { video -> viewModel.showVideo(video) })
-
-        binding.recyclerView.adapter = viewModelAdapter
+        binding.recyclerView.adapter = DevByteAdapter(VideoClick { video -> viewModel.showVideo(video) })
 
         viewModel.navigateToVideoLink.observe(viewLifecycleOwner) { video ->
             video?.let {
