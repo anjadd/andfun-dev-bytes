@@ -17,10 +17,15 @@
 
 package com.example.android.devbyteviewer.network
 
+import com.example.android.devbyteviewer.database.DatabaseVideo
 import com.example.android.devbyteviewer.domain.Video
 import com.squareup.moshi.JsonClass
 
 /**
+ *
+ * Data transfer objects are used for parsing results from the network.
+ * They also prepare the data for the network.
+ *
  * Data transfer object (DTO) is an object that carries data between processes.
  * DataTransferObjects go in this file. These are responsible for parsing responses from the server
  * or formatting objects to send to the server. You should convert these to domain objects before
@@ -44,24 +49,40 @@ data class NetworkVideoContainer(val videos: List<NetworkVideo>)
  */
 @JsonClass(generateAdapter = true)
 data class NetworkVideo(
-        val title: String,
-        val description: String,
-        val url: String,
-        val updated: String,
-        val thumbnail: String,
-        val closedCaptions: String?,
+    val title: String,
+    val description: String,
+    val url: String,
+    val updated: String,
+    val thumbnail: String,
+    val closedCaptions: String?,
 )
 
 /**
- * Convert Network results to database objects
+ * Convert Network results to Domain objects
  */
 fun NetworkVideoContainer.asDomainModel(): List<Video> {
     return videos.map {
         Video(
-                title = it.title,
-                description = it.description,
-                url = it.url,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
+            title = it.title,
+            description = it.description,
+            url = it.url,
+            updated = it.updated,
+            thumbnail = it.thumbnail
+        )
+    }
+}
+
+/**
+ * Convert Network results to Database objects
+ */
+fun NetworkVideoContainer.asDatabaseModel(): List<DatabaseVideo> {
+    return videos.map {
+        DatabaseVideo(
+            title = it.title,
+            description = it.description,
+            url = it.url,
+            updated = it.updated,
+            thumbnail = it.thumbnail
+        )
     }
 }
