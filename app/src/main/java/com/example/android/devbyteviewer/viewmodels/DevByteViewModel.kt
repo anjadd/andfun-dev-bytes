@@ -112,6 +112,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
             /* Simulate the delay in network response (like a slow connection) using the
             function delay()*/
             // delay(2000)
+
             // Show a Toast error message and hide the progress bar.
             _eventNetworkError.value = true
         }

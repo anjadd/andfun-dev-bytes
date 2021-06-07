@@ -17,3 +17,37 @@
 
 package com.example.android.devbyteviewer.database
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.android.devbyteviewer.domain.Video
+
+/**
+ * Database objects are only used for interacting with the database.
+ *
+ * DatabaseVideo represents a video entity in the database.
+ */
+@Entity
+data class DatabaseVideo constructor(@PrimaryKey
+                                     val url: String,
+                                     val updated: String,
+                                     val title: String,
+                                     val description: String,
+                                     val thumbnail: String)
+
+/**
+ * Map DatabaseVideos to domain entities
+ *
+ * In this sample app, the conversion is simple, and isn't necessary. But in a real-world app,
+ * the structure of the domain, database, and network objects will be different. You'll need
+ * conversion logic, which can get complicated.
+ */
+fun List<DatabaseVideo>.asDomainModel(): List<Video> {
+    return map {
+        Video(
+            url = it.url,
+            title = it.title,
+            description = it.description,
+            updated = it.updated,
+            thumbnail = it.thumbnail)
+    }
+}

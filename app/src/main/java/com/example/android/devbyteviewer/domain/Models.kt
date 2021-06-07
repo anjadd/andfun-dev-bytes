@@ -20,6 +20,9 @@ package com.example.android.devbyteviewer.domain
 import com.example.android.devbyteviewer.util.smartTruncate
 
 /**
+ *
+ * Domain objects are app data (data that your app uses internally).
+ *
  * Domain objects are plain Kotlin data classes that represent the things in our app. These are the
  * objects that should be displayed on screen, or manipulated by the app.
  *

@@ -16,3 +16,58 @@
  */
 
 package com.example.android.devbyteviewer.database
+
+import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.room.*
+
+/**
+ * Interface VideoDao with two helper methods to access the database:
+ * save and load data from database.
+ **/
+@Dao
+interface VideoDao {
+
+    /**
+     * The method getVideos() fetches all the videos from the database.
+    */
+    @Query("select * from databasevideo")
+    fun getVideos(): LiveData<List<DatabaseVideo>>
+
+    /**
+     * The method insertAll() inserts a list of videos fetched from the network into the database.
+    */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertVideos(vararg videos: DatabaseVideo)
+
+}
+
+
+/**
+ * Add the database for your offline cache by implementing RoomDatabase
+ * */
+@Database(entities = [DatabaseVideo::class], version = 1)
+abstract class VideosDatabase : RoomDatabase() {
+    abstract val videoDao: VideoDao
+}
+
+/**
+ * Private variable INSTANCE to hold an instance of the database as a singleton object.
+ */
+private lateinit var INSTANCE: VideosDatabase
+
+/**
+ * Method getDatabase() initializes and returns the database INSTANCE variable.
+ */
+fun getDatabase(context: Context): VideosDatabase {
+    synchronized(VideosDatabase::class.java) {
+        if (!::INSTANCE.isInitialized) {
+            INSTANCE = Room.databaseBuilder(
+                context.applicationContext,
+                VideosDatabase::class.java,
+                "videos"
+            ).build()
+        }
+    }
+    return INSTANCE
+}
