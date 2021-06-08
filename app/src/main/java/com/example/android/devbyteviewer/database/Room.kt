@@ -38,15 +38,13 @@ interface VideoDao {
      * The method insertAll() inserts a list of videos fetched from the network into the database.
     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertVideos(vararg videos: DatabaseVideo)
-
+    fun insertVideos(videos: List<DatabaseVideo>)
 }
-
 
 /**
  * Add the database for your offline cache by implementing RoomDatabase
  * */
-@Database(entities = [DatabaseVideo::class], version = 1)
+@Database(entities = [DatabaseVideo::class], version = 1, exportSchema = false)
 abstract class VideosDatabase : RoomDatabase() {
     abstract val videoDao: VideoDao
 }

@@ -19,7 +19,7 @@ package com.example.android.devbyteviewer.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.domain.DevByteVideo
 
 /**
  * Database objects are only used for interacting with the database.
@@ -41,9 +41,9 @@ data class DatabaseVideo constructor(@PrimaryKey
  * the structure of the domain, database, and network objects will be different. You'll need
  * conversion logic, which can get complicated.
  */
-fun List<DatabaseVideo>.asDomainModel(): List<Video> {
+fun List<DatabaseVideo>.asDomainModel(): List<DevByteVideo> {
     return map {
-        Video(
+        DevByteVideo(
             url = it.url,
             title = it.title,
             description = it.description,

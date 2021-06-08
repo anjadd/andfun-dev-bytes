@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.devbyteviewer.databinding.DevbyteItemBinding
-import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.domain.DevByteVideo
 
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.
  */
-class DevByteAdapter(private val clickListener: VideoClick) : ListAdapter<Video, DevByteViewHolder>(VideoDiffCallback) {
+class DevByteAdapter(private val clickListener: DevByteVideoClick) : ListAdapter<DevByteVideo, DevByteViewHolder>(VideoDiffCallback) {
 
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
@@ -30,17 +30,17 @@ class DevByteAdapter(private val clickListener: VideoClick) : ListAdapter<Video,
         holder.bind(getItem(position), clickListener)
     }
 
-    companion object VideoDiffCallback : DiffUtil.ItemCallback<Video>() {
+    companion object VideoDiffCallback : DiffUtil.ItemCallback<DevByteVideo>() {
 
         /* For the areItemsTheSame() method, use Kotlin's referential equality operator (===),
         which returns true if the object references for oldItem and newItem are the same. */
-        override fun areItemsTheSame(oldItem: Video, newItem: Video): Boolean {
+        override fun areItemsTheSame(oldItem: DevByteVideo, newItem: DevByteVideo): Boolean {
             return oldItem === newItem
         }
 
         /* For the areContentsTheSame() method, use the standard structural equality operator on
          just the ID of oldItem and newItem. */
-        override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean {
+        override fun areContentsTheSame(oldItem: DevByteVideo, newItem: DevByteVideo): Boolean {
             return oldItem == newItem
         }
     }
@@ -60,7 +60,7 @@ class DevByteViewHolder(private val viewDataBinding: DevbyteItemBinding) :
         }
     }
 
-    fun bind(item: Video, clickListener: VideoClick) {
+    fun bind(item: DevByteVideo, clickListener: DevByteVideoClick) {
         viewDataBinding.video = item
         viewDataBinding.videoClickListener = clickListener
         viewDataBinding.executePendingBindings()
@@ -71,11 +71,11 @@ class DevByteViewHolder(private val viewDataBinding: DevbyteItemBinding) :
  * Click listener for Videos. By giving the block a name (clickListener),
  * it helps a reader understand what it does.
  */
-class VideoClick(val clickListener: (Video) -> Unit) {
+class DevByteVideoClick(val clickListener: (DevByteVideo) -> Unit) {
     /**
      * Called when a video is clicked
      *
-     * @param video the video that was clicked
+     * @param devByteVideo the video that was clicked
      */
-    fun onClick(video: Video) = clickListener(video)
+    fun onClick(devByteVideo: DevByteVideo) = clickListener(devByteVideo)
 }

@@ -29,7 +29,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.devbyteviewer.R
 import com.example.android.devbyteviewer.databinding.FragmentDevByteBinding
-import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.domain.DevByteVideo
 import com.example.android.devbyteviewer.viewmodels.DevByteViewModel
 
 /**
@@ -83,9 +83,9 @@ class DevByteFragment : Fragment() {
         /**
          * Create and initialize the RecyclerView Adapter for converting a list of Video to cards.
          */
-        binding.recyclerView.adapter = DevByteAdapter(VideoClick { video -> viewModel.showVideo(video) })
+        binding.recyclerView.adapter = DevByteAdapter(DevByteVideoClick { video -> viewModel.showVideo(video) })
 
-        viewModel.navigateToVideoLink.observe(viewLifecycleOwner) { video ->
+        viewModel.navigateToDevByteVideoLink.observe(viewLifecycleOwner) { video ->
             video?.let {
                 val packageManager = context?.packageManager ?: return@let
 
@@ -122,7 +122,7 @@ class DevByteFragment : Fragment() {
     /**
      * Helper method to generate YouTube app links
      */
-    private val Video.launchUri: Uri
+    private val DevByteVideo.launchUri: Uri
         get() {
             val httpUri = Uri.parse(url)
             return Uri.parse("vnd.youtube:" + httpUri.getQueryParameter("v"))

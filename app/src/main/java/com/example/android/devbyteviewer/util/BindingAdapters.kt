@@ -22,7 +22,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.domain.DevByteVideo
 import com.example.android.devbyteviewer.ui.DevByteAdapter
 
 /**
@@ -37,7 +37,7 @@ fun goneIfNotNull(view: View, it: Any?) {
  * Binding adapter used to display the videos
  */
 @BindingAdapter("listVideoData")
-fun bindRecyclerViewList(recyclerView: RecyclerView, data: List<Video>?) {
+fun bindRecyclerViewList(recyclerView: RecyclerView, data: List<DevByteVideo>?) {
     val adapter = recyclerView.adapter as DevByteAdapter
     adapter.submitList(data)
 }
