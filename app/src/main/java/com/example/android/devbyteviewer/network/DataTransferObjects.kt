@@ -18,7 +18,7 @@
 package com.example.android.devbyteviewer.network
 
 import com.example.android.devbyteviewer.database.DatabaseVideo
-import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.domain.DevByteVideo
 import com.squareup.moshi.JsonClass
 
 /**
@@ -60,9 +60,9 @@ data class NetworkVideo(
 /**
  * Convert Network results to Domain objects
  */
-fun NetworkVideoContainer.asDomainModel(): List<Video> {
+fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
     return videos.map {
-        Video(
+        DevByteVideo(
             title = it.title,
             description = it.description,
             url = it.url,

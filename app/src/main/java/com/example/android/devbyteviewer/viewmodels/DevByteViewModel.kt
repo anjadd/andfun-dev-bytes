@@ -19,10 +19,9 @@ package com.example.android.devbyteviewer.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.android.devbyteviewer.domain.Video
-import com.example.android.devbyteviewer.network.Network
+import com.example.android.devbyteviewer.domain.DevByteVideo
+import com.example.android.devbyteviewer.network.DevByteNetwork
 import com.example.android.devbyteviewer.network.asDomainModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -42,13 +41,13 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * A playlist of videos that can be shown on the screen. This is private to avoid exposing a
      * way to set this value to observers.
      */
-    private val _playlist = MutableLiveData<List<Video>>()
+    private val _playlist = MutableLiveData<List<DevByteVideo>>()
 
     /**
      * A playlist of videos that can be shown on the screen. Views should use this to get access
      * to the data.
      */
-    val playlist: LiveData<List<Video>>
+    val playlist: LiveData<List<DevByteVideo>>
         get() = _playlist
 
     /**
@@ -81,10 +80,10 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * Create a navigateToVideoLink event, whose changed value will trigger navigation to the
      * video link on YouTube or a web url if there is no YouTube app on the device.
      */
-    private val _navigateToVideoLink = MutableLiveData<Video?>()
+    private val _navigateToDevByteVideoLink = MutableLiveData<DevByteVideo?>()
 
-    val navigateToVideoLink: LiveData<Video?>
-        get() = _navigateToVideoLink
+    val navigateToDevByteVideoLink: LiveData<DevByteVideo?>
+        get() = _navigateToDevByteVideoLink
 
     /**
      * init{} is called immediately when this ViewModel is created.
@@ -99,7 +98,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      */
     private fun refreshDataFromNetwork() = viewModelScope.launch {
         try {
-            val playlist = Network.devbytes.getPlaylist()
+            val playlist = DevByteNetwork.devbytes.getPlaylist()
             _playlist.postValue(playlist.asDomainModel())
 
             _eventNetworkError.value = false
@@ -118,12 +117,12 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun showVideo(selectedVideo: Video) {
-        _navigateToVideoLink.value = selectedVideo
+    fun showVideo(selectedDevByteVideo: DevByteVideo) {
+        _navigateToDevByteVideoLink.value = selectedDevByteVideo
     }
 
     fun onShowVideoNavigationDone() {
-        _navigateToVideoLink.value = null
+        _navigateToDevByteVideoLink.value = null
     }
 
     /**

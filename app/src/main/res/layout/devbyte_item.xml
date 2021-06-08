@@ -24,11 +24,11 @@
     <data>
         <variable
             name="video"
-            type="com.example.android.devbyteviewer.domain.Video" />
+            type="com.example.android.devbyteviewer.domain.DevByteVideo" />
 
         <variable
             name="videoClickListener"
-            type="com.example.android.devbyteviewer.ui.VideoClick" />
+            type="com.example.android.devbyteviewer.ui.DevByteVideoClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

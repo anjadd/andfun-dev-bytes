@@ -49,7 +49,7 @@ private val moshi = Moshi.Builder()
 /**
  * Main entry point for network access. Call like `Network.devbytes.getPlaylist()`
  */
-object Network {
+object DevByteNetwork {
     // Configure retrofit to parse JSON and use coroutines
     private val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
